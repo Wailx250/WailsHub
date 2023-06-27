@@ -1,9 +1,9 @@
 local player = game.Players.LocalPlayer
 local whitelist = {[4725091979] = true, 
                 [572150194] = true, 
-                [4709265748] = true,
-                [4656500590] = true
 }
+
+-- this hub sucks, its mostly just if statements
 
 local theme = "Midnight"
 
@@ -17,18 +17,16 @@ if (whitelist[player.UserId]) then
     local welcomeTab = Window:NewTab("Welcome!")
     local welcomesection1 = welcomeTab:NewSection("Hi, this is my script")
     local welcomesection2 = welcomeTab:NewSection("I made this for me and you hamza")
-    local welcomesection3 = welcomeTab:NewSection("Good luck!")
+    local welcomesection3 = welcomeTab:NewSection("Good luck exploiting in a childrens game!")
+
+    welcomesection3:NewKeybind("Toggle UI On and Off", "Can be changed", Enum.KeyCode.RightControl, function()
+        Library:ToggleUI()
+    end)
 
     -- Misselanious
     local misselaniousTab = Window:NewTab("Misselanious")
-    local misselaniousSection1 = misselaniousTab:NewSection("Random stuff")
     local misselaniousSection2 = misselaniousTab:NewSection("Hubs And Stuff")
     local misselaniousSection3 = misselaniousTab:NewSection("Chat Stuff")
-
-    misselaniousSection1:NewButton("Subplaces", "Goto subplaces.", function()
-        print("executed Subplaces thing succesfully")
-        loadstring(game:HttpGet(('https://pastebin.com/raw/C39cfVy1'),true))()
-    end)
 
     misselaniousSection2:NewButton("DarkDex v3", "See files of the game", function()
         print("executed darkdex script succesfully")
@@ -113,6 +111,16 @@ if (whitelist[player.UserId]) then
         print("Done!")
     end) 
 
+    localSection2:NewButton("Rejoin", "Rejoin the game", function()
+        game:GetService("TeleportService"):Teleport(game.PlaceId, game:GetService("Players").LocalPlayer)
+    end)
+
+    localSection2:NewButton("Subplaces", "Goto subplaces.", function()
+        print("executed Subplaces thing succesfully")
+        loadstring(game:HttpGet(('https://pastebin.com/raw/C39cfVy1'),true))()
+    end)
+
+
     localSection3:NewButton("Destroy Map", "Client stuff", function()
         print("destroyed map succesfully")
         for i, v in pairs(game.Workspace:GetChildren()) do
@@ -178,14 +186,14 @@ if (whitelist[player.UserId]) then
         print("Done")
     end)
 
-    misselaniousSection3:NewButton("Bawl Checker Script", "Checks bawl sizes", function()
+    misselaniousSection3:NewButton("Ball Checker Script", "Checks ball sizes", function()
         local compliments = {
-            "Has Big Bawls!",
-            "Has Medium Bawls!",
-            "Has Small Bawls!",
-            "Has No Balls!"
+            "Has Big Marbles!",
+            "Has Medium Marbles!",
+            "Has Small Marbles!",
+            "Has No Marbles!"
         }
-        
+        game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("By marbles i mean bwls","all")
         print("Starting")
         for i, v in pairs(game.Players:GetChildren()) do
             if v.Character.HumanoidRootPart then
@@ -208,7 +216,7 @@ if (whitelist[player.UserId]) then
         loadstring(game:HttpGet("https://projectevo.xyz/v4/script.lua", true))(); 
     end)
 
-    jailbreakSection:NewButton("Sensation", "idk", function()
+    jailbreakSection:NewButton("Sensation", "It doesnt work, i think", function()
         print("executed sensation script succesfully")
         loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/99606f43e2dac85f6afc1d93d0a02d2d.lua"))()
     end)
@@ -222,18 +230,122 @@ if (whitelist[player.UserId]) then
         print("executed REBORN")
     end)
 
-    boogaboogaSection:NewButton(":flushed:", "mid", function()
+    boogaboogaSection:NewButton(":flushed:", "6 apples out of 57 grapes", function()
         loadstring(game:HttpGet("https://raw.githubusercontent.com/CheeseOnGithub/scripts/main/bb2019.lua",true))()
         print("executed :flushed:")
     end)
 
-    -- ASakdsmSIDN
-    local trolTab = Window:NewTab("ASakdsmSIDN")
-    local trolSection = trolTab:NewSection("admin 100% real not fake")
+    -- Admin
+    local adminTab = Window:NewTab("Admin")
+    local adminSection = adminTab:NewSection("Admin (i made this myself :D)")
 
-    trolSection:NewButton("AdmIN!?!?!?!?!??!?!?", "very good admin", function()
-        print("go fuck yourself")
-        player:Kick("go to pornhub.com for admin???!?!?!??!?!?!??!?!")
+    adminSection:NewTextBox("Whitelist a player", "Whitlists somebody", function(txt)
+        local player = game.Players.LocalPlayer
+        local controller = txt
+        local cPlayer = game.Players[controller]
+
+        warn("Started")
+        game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(game.Players[controller].DisplayName .. " Has been whitelisted to use commands on me! -Made by ADADZASXDC (Natsu)","all")
+        wait(1)
+        game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Commands are: /kill /poison /bring /permdeath /walk /kick /rejoin /sit /fling /freeze /unfreeze /dance /stand /unstand /zerogravity /normalgravity","all")
+        game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("/stronggravity /cmds","all")
+        game.Players[controller].Chatted:Connect(function(Message)
+            if Message == "/kill" then
+                player.Character.Humanoid.Health = 0 
+            end
+            if Message == "/bring" then
+                player.Character.HumanoidRootPart.CFrame = cPlayer.Character.HumanoidRootPart.CFrame
+            end
+            if Message == "/poison" then
+                for i = 100, 0, -1 do
+                player.Character.Humanoid.Health = player.Character.Humanoid.Health - 1
+                wait(1)
+                end
+            end
+            if Message == "/permdeath" then 
+                player.Character.Parent = nil
+                wait(1)
+                player.Character.Humanoid.Health = 0
+            end
+            if Message == "/walk" then
+                player.Character.Humanoid:MoveTo(cPlayer.Character.HumanoidRootPart.Position)
+            end
+            if Message == "/rejoin" then
+                game:GetService("TeleportService"):Teleport(game.PlaceId, game:GetService("Players").LocalPlayer)
+            end
+            if Message == "/kick" then
+                player:Kick("You have been kicked by " .. game.Players[controller].DisplayName)
+            end
+            if Message == "/dance" then
+                game:GetService("Players"):Chat("/e dance")
+            end
+            if Message == "/sit" then
+                player.Character.Humanoid.Sit = true
+            end
+            if Message == "/fling" then
+                player.Character.HumanoidRootPart.Velocity = Vector3.new(1000, 1000, 1000)
+            end
+            if Message == "/freeze" then
+                for i, v in pairs(player.Character:GetChildren()) do
+                    if v:IsA("BasePart") then
+                        v.Anchored = true
+                    end
+                end
+            end
+            if Message == "/unfreeze" then
+                for i, v in pairs(player.Character:GetChildren()) do
+                    if v:IsA("BasePart") then
+                        v.Anchored = false
+                    end
+                end
+            end
+            if Message == "/stand" then
+                local runservice = game:GetService("RunService")
+                _G.on = true
+                local target = cPlayer
+                runservice.Heartbeat:Connect(function()
+                    if _G.on then
+                        game.Workspace.Gravity = 0
+                        local offset = CFrame.new(1.1,1,1.1)
+                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = cPlayer.Character.HumanoidRootPart.CFrame * offset
+                    end
+                end)
+            end
+            if Message == "/unstand" then
+                _G.on = false
+                game.Workspace.Gravity = 196.2
+            end
+            if Message == "/zerogravity" then
+                game.Workspace.Gravity = 0
+                wait(0.5)
+                game.Players.LocalPlayer.Character.Humanoid.Jump = true
+            end
+            if Message == "/normalgravity" then
+                game.Workspace.Gravity = 196.2
+            end
+            if Message == "/stronggravity" then
+                game.Workspace.Gravity = 981
+            end
+            if Message == "/cmds" then
+                game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Commands are: /kill /poison /bring /permdeath /walk /kick /rejoin /sit /fling /freeze /unfreeze /dance /stand /unstand /zerogravity /normalgravity","all")
+                game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("/stronggravity /cmds","all")
+            end
+            if Message == "/spin" then --skidded from infinite yield lol
+                local Spin = Instance.new("BodyAngularVelocity")
+                Spin.Name = "Spinning"
+                Spin.Parent = player.Character.HumanoidRootPart
+                Spin.MaxTorque = Vector3.new(0, math.huge, 0)
+                Spin.AngularVelocity = Vector3.new(0, 100,0)
+            end
+            if Message == "/unspin" then
+                local Spin = player.Character.HumanoidRootPart:WaitForChild("Spinning")
+                Spin:Destroy()
+            end
+        end)
+    end)
+
+    adminSection:NewButton("Admin all", "To be added soon", function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Wailx250/WailsHub/main/admin-all.lua",true))()
     end)
 else
     player:Kick("Not whitelisted.")
