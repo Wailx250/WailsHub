@@ -1,6 +1,7 @@
 local player = game.Players.LocalPlayer
 local whitelist = {[4725091979] = true, 
                 [572150194] = true, 
+                [2708473715] = true
 }
 
 -- this hub sucks, its mostly just if statements
