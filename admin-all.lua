@@ -1,6 +1,7 @@
 game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Everyone can now use admin on me! -Made by ADADZASXDC (Natsu)","all")
 wait(1)
 game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Commands are: /kill /poison /bring /permdeath /walk /kick /rejoin /sit /fling /freeze /unfreeze /dance /stand /unstand /zerogravity /normalgravity","all")
+game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("/stronggravity /cmds","all")
 for i, v in pairs (game.Players:GetChildren()) do
     local player = game.Players.LocalPlayer
     local controller = v.Name
@@ -79,6 +80,13 @@ for i, v in pairs (game.Players:GetChildren()) do
         end
         if Message == "/normalgravity" then
             game.Workspace.Gravity = 196.2
+        end
+        if Message == "/stronggravity" then
+            game.Workspace.Gravity = 981
+        end
+        if Message == "/cmds" then
+            game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Commands are: /kill /poison /bring /permdeath /walk /kick /rejoin /sit /fling /freeze /unfreeze /dance /stand /unstand /zerogravity /normalgravity","all")
+            game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("/stronggravity /cmds","all")
         end
     end)
 end
